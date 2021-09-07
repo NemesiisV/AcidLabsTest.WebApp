@@ -1,0 +1,42 @@
+<div class="container">
+    <mat-card class="card-space">
+        <mat-toolbar class="toolbar-title">
+            <h1>Update User</h1>
+        </mat-toolbar>
+        <form [formGroup]="form" (ngSubmit)=updateUser()>
+            <mat-grid-list cols="4" rowHeight="70px">
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="width-form">
+                        <mat-label>RUT</mat-label>
+                        <input matInput autocomplete="off" formControlName="rut">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="3" [rowspan]="5">
+                    <img src="/assets/images/work.jpg" class="image-new-user">
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="width-form">
+                        <mat-label>FirstName</mat-label>
+                        <input matInput autocomplete="off" formControlName="firstName">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="width-form">
+                        <mat-label>LastName</mat-label>
+                        <input matInput autocomplete="off" formControlName="lastName">
+                      </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="width-form">
+                        <mat-label>Email</mat-label>
+                        <input matInput autocomplete="off" formControlName="email" readonly value="mockEmail@gmail.com">mockEmail@gmail.com
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <button mat-raised-button class="return-button">Return</button>
+                    <button mat-raised-button class="save-user-button" [disabled]="form.invalid" type="submit">Save</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </mat-card>
+</div>

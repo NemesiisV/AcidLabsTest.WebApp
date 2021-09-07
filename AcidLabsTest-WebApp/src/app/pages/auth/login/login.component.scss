@@ -1,0 +1,52 @@
+.login-form{
+    padding: 4rem 1rem;
+
+    h1{
+        font-weight: bold;
+        color: #551f8d;
+    }
+    
+    mat-card{
+        max-width: 350px;
+        margin: 2rem auto;
+        text-align: center;
+        height: 400px;
+        border: 1px solid rgb(0, 0, 0);
+    }
+
+    .login-icon{
+        width: 60px;
+        height: 55px;
+    }
+
+    .login-button
+    {
+        background-color: green;
+        cursor: pointer;
+    }
+
+    .full-width-input, button{
+        width: 100%;
+    }
+
+    .separator {
+        margin-bottom: 2rem;
+    }
+
+    .separator-link{
+        margin: 1rem;
+    }
+    
+    a {
+        text-decoration: none;
+        background-image: linear-gradient(currentColor, currentColor);
+        background-position: 0% 100%;
+        background-repeat: no-repeat;
+        background-size: 0% 2px;
+        transition: background-size .3s;
+    }
+    
+    a:hover, a:focus {
+        background-size: 100% 2px;
+    }
+}
