@@ -3,13 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { UsersService } from '../../services/users.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export interface User {
-  firstName: string;
-  rut: string;
-  lastName: string;
-  email: string;
-}
+import { UserModel } from '@app/models/user.model';
 
 @Component({
   selector: 'app-users',
@@ -17,43 +11,50 @@ export interface User {
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  users : User[] = [];
+  users : UserModel[] = [];
   displayedColumns: string[] = ['rut', 'firstName', 'lastName', 'email', 'actions'];
   dataSource! : MatTableDataSource<any>; 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _userService: UsersService, private _snackBar: MatSnackBar) { }
+  constructor(private _usersService: UsersService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.getUsers();
   }
 
-  loadUsers()
+  getUsers()
   {
-    this.users = this._userService.getUsers();
-    this.dataSource = new MatTableDataSource(this.users);
-  }
-
-  deleteUser(index : number){
-    this._userService.deleteUser(index);
-    this.loadUsers();
-
-    this._snackBar.open('User deleted successfully', '', {
-      duration:1500,
-      horizontalPosition: 'center',
-      verticalPosition:'bottom'
+    this._usersService.getUsers().subscribe(result=> {
+      console.log(result);
+      this.users = result;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
-  ngAfterViewInit()
-  {
-    this.dataSource.paginator = this.paginator;
+  deleteUser(id : string){
+    this._usersService.deleteUser(id).subscribe(
+      result => {
+        this._snackBar.open('User deleted successfully', '', {
+          duration:1500,
+          horizontalPosition: 'center',
+          verticalPosition:'bottom'
+        });
+        this.getUsers();
+      },
+      exception => {
+        this._snackBar.open(exception.error, '', {
+          duration:1500,
+          horizontalPosition: 'center',
+          verticalPosition:'bottom'
+        });
+      }
+    );
   }
   
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
 }

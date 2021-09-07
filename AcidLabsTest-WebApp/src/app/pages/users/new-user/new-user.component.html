@@ -33,7 +33,7 @@
                       </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <button mat-raised-button type="button" class="return-button">Return</button>
+                    <button mat-raised-button [routerLink]="['/users']" type="button" class="return-button">Return</button>
                     <button mat-raised-button class="save-user-button" [disabled]="form.invalid" type="submit">Save</button>
                 </mat-grid-tile>
             </mat-grid-list>

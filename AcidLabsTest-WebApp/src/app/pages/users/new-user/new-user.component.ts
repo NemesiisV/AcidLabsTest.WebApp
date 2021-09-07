@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../users.component';
 import { UsersService } from '../../../services/users.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserModel } from '@app/models/user.model';
 
 @Component({
   selector: 'app-new-user',
@@ -32,20 +32,29 @@ export class NewUserComponent implements OnInit {
   }
 
   addUser() {
-    const user: User = {
+    const user: UserModel = {
+      id: "",
       firstName: this.form.value.firstName,
       rut: this.form.value.rut,
       lastName: this.form.value.lastName,
       email: this.form.value.email
     }
-    
-    this._usersService.addUser(user);
-    this.router.navigate(['/users']);
 
-    this._snackBar.open('User added successfully', '', {
-      duration:1500,
-      horizontalPosition: 'center',
-      verticalPosition:'bottom'
-    });
+    this._usersService.postUser(user).subscribe(
+      result => {
+        this._snackBar.open('User added successfully', '', {
+          duration:1500,
+          horizontalPosition: 'center',
+          verticalPosition:'bottom'
+        });
+        this.router.navigate(['/users']);
+      },
+      exception => {
+        this._snackBar.open(exception.error, '', {
+          duration:1500,
+          horizontalPosition: 'center',
+          verticalPosition:'bottom'
+        });
+      });
   }
 }

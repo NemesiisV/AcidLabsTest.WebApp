@@ -1,48 +1,34 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '@app/pages/users/users.component';
+import { UserModel } from '@app/models/user.model';
+import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UsersService {
+  constructor(private _httpClient: HttpClient) { }
+  private readonly usersEndpoint = `${environment.urlApi}/users`;
 
-  users: User[] = [
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-    {rut: '1', firstName: 'Hydrogen', lastName: '6.941', email: 'H'},
-  ];
-
-  constructor() { }
-
-  getUsers()
-  {
-    return this.users.slice();
+  getUsers(): Observable<Array<UserModel>> {
+    return this._httpClient.get<Array<UserModel>>(this.usersEndpoint);
   }
 
-  deleteUser(index: number){
-    this.users.splice(index, 1)
+  getUser(userId: string): Observable<UserModel> {
+    return this._httpClient.get<UserModel>(`${this.usersEndpoint}/${userId}`);
   }
 
-  addUser(user: User){
-    this.users.unshift(user);
+  putUser(request: UserModel): Observable<any> {
+    return this._httpClient.put(`${this.usersEndpoint}/${request.id}`, request);
   }
 
-  updateUser(user: User)
-  {
-    this.users.map(function(userItem){
-      if (userItem.email == user.email)
-      {
-        userItem = user
-      }
+  postUser(request: UserModel): Observable<string> {
+    return this._httpClient.post<string>(`${this.usersEndpoint}`, request);
+  }
 
-      return userItem;
-    });
+  deleteUser(userId: string): Observable<any> {
+    return this._httpClient.delete(`${this.usersEndpoint}/${userId}`);
   }
 }

@@ -12,6 +12,7 @@
       </mat-form-field>
       <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource">
+          <input>
           <mat-container matColumnDef="rut">
             <th mat-header-cell *matHeaderCellDef> RUT </th>
             <td mat-cell *matCellDef="let element"> {{element.rut}} </td>
@@ -35,13 +36,13 @@
           <mat-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef> Actions </th>
               <td mat-cell *matCellDef="let element; let i = index" class="actions">
-                  <a [routerLink]="'/user'" class="pointer view">
+                  <a [routerLink]="['/user',element.id]" class="pointer view">
                     <mat-icon matTooltip="View user">search</mat-icon>
                   </a>
-                  <a [routerLink]="'/update-user'" class="pointer edit">
+                  <a [routerLink]="['/update-user',element.id]" class="pointer edit">
                     <mat-icon matTooltip="Update user">edit</mat-icon>
                   </a>
-                  <a (click)="deleteUser(i)" class="pointer delete">
+                  <a (click)="deleteUser(element.id)" class="pointer delete">
                     <mat-icon matTooltip="Delete user">delete</mat-icon>
                   </a>
               </td>
