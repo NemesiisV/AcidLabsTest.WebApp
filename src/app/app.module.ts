@@ -9,6 +9,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { MaterialModule } from '@app/material.module';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
+import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,18 @@ import { SidebarModule } from './shared/components/sidebar/sidebar.module';
     MaterialModule,
     SidebarModule,
     HttpClientModule,
+    AuthModule.forRoot({
+      config: {
+        authority: 'https://cognito-idp.sa-east-1.amazonaws.com/sa-east-1_VLnPO8inU',
+        redirectUrl: window.location.origin+'/callback',
+        postLogoutRedirectUri: window.location.origin,
+        clientId: '2r2vi627m75u405hs8maeretl0',
+        responseType: 'code',
+        silentRenew: true,
+        useRefreshToken: true,
+        logLevel: LogLevel.Error,
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
