@@ -7,10 +7,7 @@ const routes: Routes = [
   },
   { 
     path: 'notFound', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
-  }, 
-  { 
-    path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule) 
-  }, 
+  },
   { 
     path: 'login', loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule) 
   }, 
