@@ -31,6 +31,7 @@ import { HttpCustomInterceptor } from './services/http.interceptor';
         redirectUrl: window.location.origin+'/callback',
         postLogoutRedirectUri: window.location.origin,
         clientId: '2r2vi627m75u405hs8maeretl0',
+        scope: 'openid profile email api://apiacidlabs/write',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
