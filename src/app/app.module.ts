@@ -10,6 +10,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { MaterialModule } from '@app/material.module';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import { HttpCustomInterceptor } from './services/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,11 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
       },
     }),
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpCustomInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

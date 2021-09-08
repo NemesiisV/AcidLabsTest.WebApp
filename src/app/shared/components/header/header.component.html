@@ -4,12 +4,9 @@
         <span><img src="/assets/images/LogoAcid.png" class="img-header">Acid Labs Test</span>
         <span class="spacer"></span>
         <!--<div>
-            <a mat-button [routerLink]="'/login'">Login</a>
-            <a mat-button>Logout</a>
-            <a mat-button [routerLink]="'/admin'">Admin</a>
+            <a mat-button (click)="logout()">Logout</a>
         </div>-->
     </ng-container>
-    <!--<button (click)="isAdmin = !isAdmin">Change</button>-->
 </mat-toolbar>
 
 <ng-template #viewAdmin>
